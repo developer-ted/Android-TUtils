@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -15,12 +16,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+    publish {
+        userOrg = 'rlawldhsk'
+        groupId = 'com.tedkim'
+        artifactId = 'TUtils'
+        version = '1.0.0'
+        description = 'Android common utils'
+        website = "https://github.com/rlawldhsk/Android-TUtils"
+    }
     productFlavors {
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
     compile 'com.facebook.fresco:fresco:0.10.0'
     compile 'com.google.code.gson:gson:2.4'
 }
