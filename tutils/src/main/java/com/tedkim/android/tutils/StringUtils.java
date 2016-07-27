@@ -15,6 +15,7 @@ public class StringUtils {
 
     /**
      * Get random code (english and number)
+     *
      * @return random code
      */
     public static String getRandomCode() {
@@ -36,7 +37,7 @@ public class StringUtils {
      * Check the PATH to the URI
      *
      * @param context context
-     * @param uri url
+     * @param uri     url
      * @return path
      */
     public static String getPathFromURI(Context context, Uri uri) {
@@ -59,7 +60,7 @@ public class StringUtils {
      * Cut phrase
      *
      * @param phrase original phrase
-     * @param start string index
+     * @param start  string index
      * @return cut phrase
      */
     public static String cutPhrase(String phrase, int start) {
@@ -97,5 +98,15 @@ public class StringUtils {
      */
     public static String removeGapPhrase(String phrase) {
         return phrase.trim();
+    }
+
+    /**
+     * Get New-line character remove
+     *
+     * @param message changed message
+     * @return Removed New-line character
+     */
+    public static String removeNewLineCharacter(String message) {
+        return message.replace(System.getProperty("line.separator"), "");
     }
 }
