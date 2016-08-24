@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -16,13 +19,14 @@ public class StringUtils {
     /**
      * Get random code (english and number)
      *
+     * @param length random code length
      * @return random code
      */
-    public static String getRandomCode() {
+    public static String getRandomCode(int length) {
         Random rnd = new Random();
         StringBuffer buf = new StringBuffer();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < length; i++) {
             if (rnd.nextBoolean()) {
                 buf.append((char) (rnd.nextInt(26) + 97));
             } else {
@@ -108,5 +112,17 @@ public class StringUtils {
      */
     public static String removeNewLineCharacter(String message) {
         return message.replace(System.getProperty("line.separator"), "");
+    }
+
+    /**
+     * set TextView under line
+     *
+     * @param textView textview
+     * @param message  under line message
+     */
+    public static void setUnderLine(TextView textView, String message) {
+        SpannableString content = new SpannableString(message);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textView.setText(content);
     }
 }

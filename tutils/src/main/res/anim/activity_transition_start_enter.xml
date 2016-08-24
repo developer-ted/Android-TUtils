@@ -4,5 +4,5 @@
         android:fromXDelta="100%p"
         android:toXDelta="0"
         android:interpolator="@android:anim/accelerate_interpolator"
-        android:duration="150"/>
+        android:duration="@integer/activity_transition_time"/>
 </set>

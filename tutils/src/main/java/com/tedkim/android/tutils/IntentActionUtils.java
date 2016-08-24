@@ -1,7 +1,6 @@
 package com.tedkim.android.tutils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -29,6 +28,25 @@ public class IntentActionUtils {
     }
 
     /**
+     * Slide Intent Action
+     *
+     * @param activity    activity
+     * @param clazz       move to class
+     * @param requestCode request code
+     * @param isSlideUp   slide up/down or slide left/right
+     */
+    public static void intentSlide(Activity activity, Class clazz, int requestCode, boolean isSlideUp) {
+        log.d(TAG, "[intentDefault] class : " + clazz.getSimpleName());
+        Intent intent = new Intent(activity, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        activity.startActivityForResult(intent, requestCode);
+        if (isSlideUp)
+            activity.overridePendingTransition(R.anim.activity_transition_slide_up, R.anim.activity_transition_not_changed);
+        else
+            activity.overridePendingTransition(R.anim.activity_transition_start_enter, R.anim.activity_transition_start_exit);
+    }
+
+    /**
      * Main screen intent action
      *
      * @param activity    activity
@@ -47,11 +65,11 @@ public class IntentActionUtils {
     /**
      * External URL intent action
      *
-     * @param context context
+     * @param activity context
      * @param url     intent action url
      */
-    public static void intentExternalURL(Context context, String url) {
+    public static void intentExternalURL(Activity activity, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 }

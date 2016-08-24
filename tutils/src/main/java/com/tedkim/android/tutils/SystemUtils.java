@@ -396,6 +396,21 @@ public class SystemUtils {
     }
 
     /**
+     * Get resource color
+     *
+     * @param context context
+     * @param id      resource color id
+     * @return color int
+     */
+    public static int getColor(Context context, int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getColor(id);
+        } else {
+            return context.getResources().getColor(id);
+        }
+    }
+
+    /**
      * Get device unique id
      *
      * @param context context

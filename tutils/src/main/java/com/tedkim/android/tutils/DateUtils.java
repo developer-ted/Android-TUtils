@@ -1,5 +1,7 @@
 package com.tedkim.android.tutils;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -156,6 +158,7 @@ public class DateUtils {
      * @param date 날짜
      * @return unix time
      */
+    @SuppressLint("SimpleDateFormat")
     public static long getUnixTimeFromDate(String date) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd hh mm");
@@ -168,10 +171,59 @@ public class DateUtils {
     /**
      * Get date to unix time
      *
-     * @param long time
+     * @param millisecond time
      * @return unix time
      */
-    public static Date getDateFromUnixTime(long time) {
-        return new Date(time*1000);
+    public static Date getDateFromUnixTime(long millisecond) {
+        String check = String.valueOf(millisecond);
+        if (check.length() < 13) {
+            return new Date(millisecond * 1000);
+        } else {
+            return new Date(millisecond);
+        }
+    }
+
+    /**
+     * Get current month
+     *
+     * @return string date
+     */
+    public static String getCurrentMonth() {
+        return getDate(System.currentTimeMillis(), "M");
+    }
+
+    /**
+     * Get date from millisecond
+     *
+     * @param millisecond millisecond
+     * @return string date
+     */
+    public static String getDateFromMillisecond(long millisecond) {
+//        yyyy년 MM월 dd일 E요일
+        return getDate(millisecond, "yyyy.MM.dd");
+    }
+
+    /**
+     * Get time from millisecond
+     *
+     * @param millisecond millisecond
+     * @return string time
+     */
+    public static String getTimeFromMillisecond(long millisecond) {
+        return getDate(millisecond, "H시 mm분");
+    }
+
+    /**
+     * Get date from millisecond
+     *
+     * @param millisecond  millisecond
+     * @param formatString string format
+     * @return string date
+     */
+    @SuppressLint("SimpleDateFormat")
+    public static String getDate(long millisecond, String formatString) {
+        Date date = DateUtils.getDateFromUnixTime(millisecond);
+        SimpleDateFormat format = new SimpleDateFormat(formatString);
+        return format.format(date);
     }
 }

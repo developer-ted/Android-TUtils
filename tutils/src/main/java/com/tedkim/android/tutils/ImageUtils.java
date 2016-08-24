@@ -128,10 +128,14 @@ public class ImageUtils {
         view.post(new Runnable() {
             @Override
             public void run() {
-                if (url == null)
+                if (url == null) {
                     view.setImageURI(Uri.EMPTY);
-                else
-                    view.setImageURI(Uri.parse(url));
+                } else {
+                    if (url.length() == 0)
+                        view.setImageURI(Uri.EMPTY);
+                    else
+                        view.setImageURI(Uri.parse(url));
+                }
             }
         });
     }
