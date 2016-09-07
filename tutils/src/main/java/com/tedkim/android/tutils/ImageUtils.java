@@ -18,6 +18,10 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.module.GlideModule;
+import com.bumptech.glide.request.target.Target;
 import com.facebook.cache.common.SimpleCacheKey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -161,10 +165,11 @@ public class ImageUtils {
                     if (url.length() == 0)
                         Glide.with(view.getContext()).load(res).into(view);
                     else
-                        Glide.with(view.getContext()).load(url).into(view);
-
+                        Glide.with(view.getContext()).load(url).placeholder(res).dontAnimate().into(view);
+                        //.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 }
             }
         });
     }
+
 }
