@@ -1,8 +1,10 @@
 package com.tedkim.android.tutils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 /**
  * Class collection of intent action
@@ -25,6 +27,20 @@ public class IntentActionUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         activity.startActivityForResult(intent, requestCode);
         activity.overridePendingTransition(R.anim.activity_transition_start_enter, R.anim.activity_transition_start_exit);
+    }
+
+    /**
+     * Default Intent Action
+     *
+     * @param activity    activity
+     * @param clazz       move to class
+     * @param requestCode request code
+     */
+    public static void intentDefaultNoAnimation(Activity activity, Class clazz, int requestCode) {
+        log.d(TAG, "[intentDefault] class : " + clazz.getSimpleName());
+        Intent intent = new Intent(activity, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -60,6 +76,20 @@ public class IntentActionUtils {
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         activity.startActivityForResult(intent, requestCode);
         activity.overridePendingTransition(R.anim.activity_transition_start_enter, R.anim.activity_transition_start_exit);
+    }
+
+    /**
+     * Restart application
+     *
+     * @param activity MainActivity
+     * @param clazz class
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void restartApp(Activity activity, Class clazz) {
+        Intent intent = new Intent(activity, clazz);
+        intent.setAction("android.intent.action.MAIN");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
     }
 
     /**

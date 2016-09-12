@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -35,6 +36,34 @@ public class FormatUtils {
      */
     public static boolean isValidEmail(CharSequence target) {
         return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    /**
+     * Password validation
+     * alphabet + number or alphabet + special_character
+     *
+     * @param target char sequence
+     * @return true/false
+     */
+    public static boolean isValidPassword(CharSequence target) {
+        final String regex1 = "([!,@,#,$,%,^,&,*,?,_,-,~,+,=])";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher matcher1 = pattern1.matcher(target);
+        Boolean isRegex1 = matcher1.find();
+
+        final String regex2 = "([a-zA-Z])";
+        Pattern pattern2 = Pattern.compile(regex2);
+        Matcher matcher2 = pattern2.matcher(target);
+        Boolean isRegex2 = matcher2.find();
+
+        final String regex3 = "([0-9])";
+        Pattern pattern3 = Pattern.compile(regex3);
+        Matcher matcher3 = pattern3.matcher(target);
+        Boolean isRegex3 = matcher3.find();
+
+        return isRegex1 && isRegex2 || isRegex1 && isRegex3
+                || isRegex2 && isRegex3 || isRegex1 && isRegex2 && isRegex3;
+
     }
 
     /**
