@@ -2,6 +2,7 @@ package com.tedkim.android.tutils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -41,6 +42,31 @@ public class IntentActionUtils {
         Intent intent = new Intent(activity, clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * Default intent back pressed action
+     *
+     * @param activity   activity
+     * @param resultCode result code
+     */
+    public static void intentBackPressed(Activity activity, int resultCode) {
+        Intent intent = new Intent();
+        activity.setResult(resultCode, intent);
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_transition_end_enter, R.anim.activity_transition_end_exit);
+    }
+
+    /**
+     * No animation intent back pressed action
+     *
+     * @param activity   activity
+     * @param resultCode result code
+     */
+    public static void intentBackPressedNoAnimation(Activity activity, int resultCode) {
+        Intent intent = new Intent();
+        activity.setResult(resultCode, intent);
+        activity.finish();
     }
 
     /**
@@ -101,5 +127,18 @@ public class IntentActionUtils {
     public static void intentExternalURL(Activity activity, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(intent);
+    }
+
+    /**
+     * Intent google play store
+     * @param context content
+     */
+    public static void openAppInGooglePlay(Context context) {
+        final String appPackageName = context.getPackageName();
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException e) { // if there is no Google Play on device
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
     }
 }
