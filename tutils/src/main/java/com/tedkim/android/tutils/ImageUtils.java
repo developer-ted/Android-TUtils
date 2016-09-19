@@ -10,7 +10,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -18,10 +17,6 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.module.GlideModule;
-import com.bumptech.glide.request.target.Target;
 import com.facebook.cache.common.SimpleCacheKey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -132,19 +127,14 @@ public class ImageUtils {
      * @param url  image url
      */
     public static void setImage(final SimpleDraweeView view, final String url) {
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                if (url == null) {
-                    view.setImageURI(Uri.EMPTY);
-                } else {
-                    if (url.length() == 0)
-                        view.setImageURI(Uri.EMPTY);
-                    else
-                        view.setImageURI(Uri.parse(url));
-                }
-            }
-        });
+        if (url == null) {
+            view.setImageURI(Uri.EMPTY);
+        } else {
+            if (url.length() == 0)
+                view.setImageURI(Uri.EMPTY);
+            else
+                view.setImageURI(Uri.parse(url));
+        }
     }
 
     /**
