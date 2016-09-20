@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">TUtils</string>
-    <string name="common_guide_finish">\'backspace\' click button again to exit app </string>
+    <string name="common_guide_finish">\'后退\' 再次点击按键即可退出。</string>
 </resources>
