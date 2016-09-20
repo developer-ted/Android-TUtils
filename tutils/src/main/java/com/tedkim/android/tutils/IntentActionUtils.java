@@ -108,7 +108,7 @@ public class IntentActionUtils {
      * Restart application
      *
      * @param activity MainActivity
-     * @param clazz class
+     * @param clazz    class
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void restartApp(Activity activity, Class clazz) {
@@ -119,10 +119,21 @@ public class IntentActionUtils {
     }
 
     /**
+     * Restart activity & no animation
+     *
+     * @param activity activity
+     */
+    public static void restartActivity(Activity activity) {
+        activity.finish();
+        activity.startActivity(new Intent(activity, activity.getClass()));
+        activity.overridePendingTransition(0, 0);
+    }
+
+    /**
      * External URL intent action
      *
      * @param activity context
-     * @param url     intent action url
+     * @param url      intent action url
      */
     public static void intentExternalURL(Activity activity, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

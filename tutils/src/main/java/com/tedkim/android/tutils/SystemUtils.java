@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -54,7 +55,9 @@ public class SystemUtils {
 
         View decorView = activity.getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
     /**
@@ -69,7 +72,9 @@ public class SystemUtils {
 
         View decorView = activity.getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
     /**
@@ -408,6 +413,19 @@ public class SystemUtils {
         } else {
             return context.getResources().getColor(id);
         }
+    }
+
+    /**
+     * change application language
+     *
+     * @param context context
+     * @param locale  locale
+     */
+    public static void changeLanguage(Context context, Locale locale) {
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
 
     /**

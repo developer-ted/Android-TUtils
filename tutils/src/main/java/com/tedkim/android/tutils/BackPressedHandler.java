@@ -17,7 +17,7 @@ public class BackPressedHandler {
     public static void onBackPressed(Context context) {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
-            toast = Toast.makeText(context, context.getString(R.string.toast_back_press_app), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(context, context.getString(R.string.common_guide_finish), Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
@@ -30,7 +30,7 @@ public class BackPressedHandler {
     public static void onBackPressedKillProcess(Activity activity) {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
-            toast = Toast.makeText(activity, activity.getString(R.string.toast_back_press_app), Toast.LENGTH_SHORT);
+            toast = Toast.makeText(activity, activity.getString(R.string.common_guide_finish), Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
