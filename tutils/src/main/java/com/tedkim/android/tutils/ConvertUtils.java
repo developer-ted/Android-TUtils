@@ -78,7 +78,8 @@ public class ConvertUtils {
             try {
                 long s = seconds % 60;
                 long m = (seconds / 60) % 60;
-                long h = (seconds / (60 * 60)) % 24;
+                long h = (seconds / 3600);
+//                long h = (seconds / (60 * 60)) % 24;
                 if (h > 0) {
                     duration = String.format("%d:%02d:%02d", h, m, s);
                 } else {
