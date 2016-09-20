@@ -165,8 +165,8 @@ public class ImageUtils {
                     if (url.length() == 0)
                         Glide.with(view.getContext()).load(res).into(view);
                     else
-                        Glide.with(view.getContext()).load(url).placeholder(res).dontAnimate().into(view);
-                        //.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                        Glide.with(view.getContext()).load(url).placeholder(res).dontAnimate()
+                                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(view);
                 }
             }
         });
