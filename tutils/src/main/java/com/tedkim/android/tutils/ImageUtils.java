@@ -14,10 +14,6 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.facebook.cache.common.SimpleCacheKey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -136,31 +132,6 @@ public class ImageUtils {
             else
                 view.setImageURI(Uri.parse(url));
         }
-    }
-
-    /**
-     * Adel, 2016-08-29
-     * image setting with Glide
-     *
-     * @param view ImageView
-     * @param url  image url
-     * @param res  default image resource id
-     */
-    public static void setImage(final ImageView view, final String url, final int res) {
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                if (url == null) {
-                    Glide.with(view.getContext()).load(res).into(view);
-                } else {
-                    if (url.length() == 0)
-                        Glide.with(view.getContext()).load(res).into(view);
-                    else
-                        Glide.with(view.getContext()).load(url).placeholder(res).dontAnimate()
-                                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(view);
-                }
-            }
-        });
     }
 
 }
