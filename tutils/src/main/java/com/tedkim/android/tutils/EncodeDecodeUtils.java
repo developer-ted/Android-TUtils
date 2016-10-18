@@ -38,6 +38,21 @@ public class EncodeDecodeUtils {
     }
 
     /**
+     * Base62 encoding
+     * @param content encoding string
+     * @return Base62-encoded string
+     */
+    public static String getBase62Encoding(int content) {
+        final char[] BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+        final StringBuilder sb = new StringBuilder(1);
+        do {
+            sb.insert(0, BASE62[content % 62]);
+            content /= 62;
+        } while (content > 0);
+        return sb.toString();
+    }
+
+    /**
      * URL Base64 decoding
      *
      * @param content encoding string
