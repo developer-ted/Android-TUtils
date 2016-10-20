@@ -152,4 +152,17 @@ public class IntentActionUtils {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
         }
     }
+
+    /**
+     * Intent share dialog
+     * @param activity activity
+     * @param title dialog title
+     * @param message share message
+     */
+    public static void intentShare(Activity activity, String title, String message) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+        activity.startActivity(Intent.createChooser(sharingIntent, title));
+    }
 }
