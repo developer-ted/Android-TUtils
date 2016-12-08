@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -214,10 +215,12 @@ public class SystemUtils {
     public static void hideSoftKeyboard(Activity activity) {
         if (activity != null) {
             InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            View currentFocus = activity.getCurrentFocus();
+            if(currentFocus !=null) {
+                inputManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            }
         }
     }
-
     /**
      * Get mobile software version
      *
