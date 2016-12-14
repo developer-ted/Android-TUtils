@@ -16,7 +16,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -439,7 +438,7 @@ public class SystemUtils {
      */
     public static String getDeviceUniqueID(Context context) {
         String DEVICE_UNIQUE_ID = "DEVICE_UNIQUE_ID";
-        String id = Preferences.loadString(context, DEVICE_UNIQUE_ID, "");
+        String id = PreferencesUtils.loadString(context, DEVICE_UNIQUE_ID, "");
         if (id.equals("")) {
             UUID uuid;
             final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -455,7 +454,7 @@ public class SystemUtils {
 //            throw new RuntimeException(e);
                 id = "";
             }
-            Preferences.saveString(context, DEVICE_UNIQUE_ID, id);
+            PreferencesUtils.saveString(context, DEVICE_UNIQUE_ID, id);
         }
 
         log.d(TAG, "Device Unique ID : " + id);
