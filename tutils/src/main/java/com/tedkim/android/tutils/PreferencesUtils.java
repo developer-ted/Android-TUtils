@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Class collection of android shared preferences
  * Created by Ted
  */
-public class Preferences {
+public class PreferencesUtils {
 
     private static final String NAME = "TedKim";
 

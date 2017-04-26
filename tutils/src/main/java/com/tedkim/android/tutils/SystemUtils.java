@@ -215,10 +215,12 @@ public class SystemUtils {
     public static void hideSoftKeyboard(Activity activity) {
         if (activity != null) {
             InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            View currentFocus = activity.getCurrentFocus();
+            if(currentFocus !=null) {
+                inputManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            }
         }
     }
-
     /**
      * Get mobile software version
      *
@@ -437,7 +439,7 @@ public class SystemUtils {
      */
     public static String getDeviceUniqueID(Context context) {
         String DEVICE_UNIQUE_ID = "DEVICE_UNIQUE_ID";
-        String id = Preferences.loadString(context, DEVICE_UNIQUE_ID, "");
+        String id = PreferencesUtils.loadString(context, DEVICE_UNIQUE_ID, "");
         if (id.equals("")) {
             UUID uuid;
             final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -453,7 +455,7 @@ public class SystemUtils {
 //            throw new RuntimeException(e);
                 id = "";
             }
-            Preferences.saveString(context, DEVICE_UNIQUE_ID, id);
+            PreferencesUtils.saveString(context, DEVICE_UNIQUE_ID, id);
         }
 
         log.d(TAG, "Device Unique ID : " + id);
