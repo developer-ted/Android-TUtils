@@ -75,17 +75,27 @@ public class IntentActionUtils {
      * @param activity    activity
      * @param clazz       move to class
      * @param requestCode request code
-     * @param isSlideUp   slide up/down or slide left/right
      */
-    public static void intentSlide(Activity activity, Class clazz, int requestCode, boolean isSlideUp) {
-        log.d(TAG, "[intentDefault] class : " + clazz.getSimpleName());
+    public static void intentSlide(Activity activity, Class clazz, int requestCode) {
+        log.d(TAG, "[intentSlide] class : " + clazz.getSimpleName());
         Intent intent = new Intent(activity, clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         activity.startActivityForResult(intent, requestCode);
-        if (isSlideUp)
-            activity.overridePendingTransition(R.anim.activity_transition_slide_up, R.anim.activity_transition_not_changed);
-        else
-            activity.overridePendingTransition(R.anim.activity_transition_start_enter, R.anim.activity_transition_start_exit);
+        activity.overridePendingTransition(R.anim.activity_transition_slide_up, R.anim.activity_transition_not_changed);
+    }
+
+    /**
+     * Slide Intent action
+     *
+     * @param activity   activity
+     * @param resultCode result code
+     */
+    public static void intentBackPressedSlide(Activity activity, int resultCode) {
+        log.d(TAG, "[intentSlide] class : " + activity.getClass().getSimpleName());
+        Intent intent = new Intent();
+        activity.setResult(resultCode, intent);
+        activity.finish();
+        activity.overridePendingTransition(R.anim.activity_transition_not_changed, R.anim.activity_transition_slide_down);
     }
 
     /**
@@ -101,7 +111,7 @@ public class IntentActionUtils {
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         activity.startActivityForResult(intent, requestCode);
-        activity.overridePendingTransition(R.anim.activity_transition_start_enter, R.anim.activity_transition_start_exit);
+        activity.overridePendingTransition(R.anim.activity_transition_end_enter, R.anim.activity_transition_end_exit);
     }
 
     /**
@@ -141,7 +151,22 @@ public class IntentActionUtils {
     }
 
     /**
+     * When Tab to change intent action
+     *
+     * @param activity    activity
+     * @param clazz       class
+     * @param requestCode request code
+     */
+    public static void intentTabChange(Activity activity, Class clazz, int requestCode) {
+        Intent intentReward = new Intent(activity, clazz);
+        intentReward.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        activity.startActivityForResult(intentReward, requestCode);
+        activity.overridePendingTransition(0, 0);
+    }
+
+    /**
      * Intent google play store
+     *
      * @param context content
      */
     public static void openAppInGooglePlay(Context context) {

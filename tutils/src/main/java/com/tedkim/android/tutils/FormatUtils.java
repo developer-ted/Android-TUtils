@@ -127,6 +127,17 @@ public class FormatUtils {
     }
 
     /**
+     * Make a vo to json string
+     *
+     * @param string json string
+     * @param clazz  convert class
+     * @return vo object
+     */
+    public static Object toJsonObject(String string, Class clazz) {
+        return new Gson().fromJson(string, clazz);
+    }
+
+    /**
      * Make a vo to json object
      *
      * @param object json object

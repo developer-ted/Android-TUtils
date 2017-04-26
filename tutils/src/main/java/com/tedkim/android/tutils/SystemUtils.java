@@ -12,6 +12,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -264,7 +265,7 @@ public class SystemUtils {
      * @param context context
      * @return app version
      */
-    public static String getAppVersionName(Context context) {
+    public static String getVersionName(Context context) {
         String version = null;
 
         try {
@@ -457,5 +458,20 @@ public class SystemUtils {
 
         log.d(TAG, "Device Unique ID : " + id);
         return id;
+    }
+
+    /**
+     * 어플리케이션의 최소 버전 정보와
+     * 단말기의 버전정보를 비교하여 앱 진입 여부 반환
+     */
+    public static boolean isSuitableVersion(int minimumSDK) {
+        // Build.VERSION_CODES.JELLY_BEAN_MR1
+        // 참고 : http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN_MR1
+        boolean isSuitable = false;
+        if (getSoftWareVersion() >= minimumSDK) { //JELLY_BEAN_MR1 : Android 4.2 (value  17)
+            isSuitable = true;
+        }
+
+        return isSuitable;
     }
 }

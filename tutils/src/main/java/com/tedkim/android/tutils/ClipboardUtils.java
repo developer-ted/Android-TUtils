@@ -2,12 +2,13 @@ package com.tedkim.android.tutils;
 
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * Class collection of Clipboard
@@ -24,7 +25,7 @@ public class ClipboardUtils {
      * Constructor
      */
     public ClipboardUtils(Context context) {
-        clipBoard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        clipBoard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         registerClipboardListener();
     }
 
@@ -55,6 +56,12 @@ public class ClipboardUtils {
         }
     };
 
+    public static void setClipboardText(Context context, String text) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        clipboard.setPrimaryClip(clip);
+    }
+
     /**
      * Get clipboard text
      *
@@ -62,7 +69,7 @@ public class ClipboardUtils {
      * @return clipboard text
      */
     public static String getClipboardText(Context context) {
-        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         if (clipboardManager.hasPrimaryClip()) {
             ClipData clipData = clipboardManager.getPrimaryClip();
 
@@ -80,7 +87,7 @@ public class ClipboardUtils {
      * @param context context
      */
     public static void clearClipboardText(Context context) {
-        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         if (clipboardManager.hasPrimaryClip()) {
             ClipData clipData = ClipData.newPlainText(null, "");
             clipboardManager.setPrimaryClip(clipData);

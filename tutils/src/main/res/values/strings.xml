@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">TUtils</string>
+    <string name="module_name" translatable="false">TUtils</string>
     <string name="common_guide_finish">Tap \'back\' button in order to exit the app</string>
 </resources>
